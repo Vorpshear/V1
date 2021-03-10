@@ -1,71 +1,58 @@
-/*	-WHAT IS THIS?-
-	This file adds optional material to "MPMB's Character Record Sheet" found at https://flapkan.com/mpmb/charsheets
-	Import this file using the "Add Extra Materials" bookmark.
-
-	-KEEP IN MIND-
-	It is recommended to enter the code in a fresh sheet before adding any other information (i.e. before making your character with it).
-*/
-
-/*	-INFORMATION-
-	Subject:	Race
-	Effect:		This script adds a player race, called "Doppelganger"
-				This is taken from the homebrew section on D&D Beyond (https://www.dndbeyond.com/characters/races/622-doppelganger)
-				This race is made by VillainTheory
-	Code by:	MorePurpleMoreBetter
-	Date:		2018-11-06 (sheet v13.0.0beta6)
-*/
-
-var iFileName = "Doppelganger [D&D Beyond, transcribed by MPMB].js";
-RequiredSheetVersion(12.999);
-
-SourceList["DnD-B:D"] = {
-	name : "D&D Beyond: Doppelganger",
-	abbreviation : "DnD-B:D",
-	group : "D&D Beyond",
-	url : "https://www.dndbeyond.com/characters/races/622-doppelganger",
-	date : "2018/01/20"
-};
-
-RaceList["doppelganger"] = {
-	regExpSearch : /doppelganger/i,
-	name : "Doppelganger",
-	source : ["DnD-B:D", 0],
-	plural : "Doppelgangers",
-	size : 3,
-	speed : {
-		walk : { spd : 30, enc : 20 }
-	},
-	languageProfs : ["Common", 2],
+RaceList["Behemoth"] = {
+	regExpSearch : /behemoth/i,
+	name : "Behemoth",
+	source : ["HB", 0],
+	plural : "Behemoths",
+	size : 4,
+	speed : { walk : { spd : 30, enc : 20 } },
+	languageProfs : ["Common", "Undercommon", "Giant"],
 	vision : [["Darkvision", 60]],
-	savetxt : {
-		adv_vs : ["charmed"]
+	abilitySave : 1, 3,
+	weapons : ["Behemoth Slam"],
+	dmgres : ["Necrotic", "Cold"],
+	savetxt : { adv_vs : ["frightened"] },
+	toolProfs : ["Mason's tools"],
+	armorOptions : {
+		regExpSearch : /^((?=.*umbral)|(?=.*(hide)).*$/i,
+		name : "Umbral Hide",
+		source : ["HB", 0],
+		ac : 14
 	},
-	skills : ["Deception"],
-	age : " reach maturity at the same age as their parent race, and live for roughly a century after they reach maturity",
-	height : " stand around 6 feet tall, slightly taller than humans, with hints of elven features",
-	weight : "",
-	heightMetric : " stand around 1,8 metres tall, slightly taller than humans, with hints of elven features",
-	improvements: "Doppelganger: +1 Dexterity, +1 Charisma;",
-	scores : [0, 1, 0, 0, 0, 1],
-	trait : "Doppelganger (+1 Dexterity, +1 Charisma)\n   Shapechanger: As an action three times per long rest, I can polymorph into a Small or Medium humanoid I have seen. Stats and equipment don't change. I revert back when I die.\n   Read Thoughts: As an action, I can read the surface thoughts of a creature in 30 ft which lasts until my concentration is broken.\n   Psychic Intuition: Once per long rest, while reading a target's thoughts, I can choose to have advantage on a single Insight, Deception, Intimidation, or Persuasion check against it.",
-	features : {
-		"shapechanger" : {
-			name : "Shapechanger",
-			minlevel : 1,
-			usages : 3,
-			recovery : "long rest",
-			action : ["action", " (start/end)"]
+	armorProfs : [false, false, false, false],
+	armorAdd : "Umbral Hide",
+	weaponProfs : [false, false, ["Glaive", "Pike", "Spear", "Halberd"]],
+	skills : ["Athletics"],
+	age : " reach adulthood around 3 years and live around 3000 years",
+	height : " range from 7 to 8 feet tall)",
+	weight : " weigh around 400 to 500 lb.",
+	improvements : "Behemoth: +3 Strength, +1 Constitution;",
+	scores : [3, 0, 1, 0, 0, 0],
+	trait : "Behemoth (+3 Strength, +1 Constitution)" + (typePF ? "\n" : "") + "\nUmbral Regeneration: Once per short rest, I can regenerate 1d12 + my Con" + (typePF ? "" : "stitution") + " modifier." + (typePF ? "\n" : "") + "\nPowerful Build: I count as one size larger when determining my carrying capacity and the weight I can push, drag, or lift." + (typePF ? "\n" : "") + "\nBrutality: critical strikes with melee weapons or unarmed strikes occur on a hit roll of 19 or 20.\n Unmatched Strength: your strength can start at 18 and be raised to 24 through ASI's.",
+	carryingCapacity : 2,
+	};
+	
+	
+WeaponsList["Behemoth Slam"] = {
+	regExpSearch : /^(?=.*behemoth)(?=.*\bslam?\b).*$/i,
+	name : "Behemoth Slam",
+	source : ["behemoth", 0],
+	ability : 1,
+	type : "Natural",
+	damage : [1, 8, "bludgeoning"],
+	range : "Melee",
+	description : "",
+	abilitytodamage : true,
+	monkweapon : true,
+	};
+
+	
+features : { "Umbral Regeneration" : {
+		name : "Umbral Regeneration",
+		minlevel : 1,
+		usages : 1,
+		recovery : "short rest",
+		tooltip : "",
+		action : ["reaction", ""]
 		},
-		"read thoughts" : {
-			name : "Read Thoughts",
-			minlevel : 1,
-			action : ["action", ""]
-		},
-		"psychic intuition" : {
-			name : "Psychic Intuition",
-			minlevel : 1,
-			usages : 1,
-			recovery : "long rest",
-		}
-	}
-};
+},
+		
